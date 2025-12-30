@@ -1,0 +1,577 @@
+ * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    background-color: #b8b8b8;
+}
+
+.drop-area {
+    border: 2px dashed #007bff;
+    border-radius: 10px;
+    padding: 20px;
+    transition: background-color 0.3s;
+    margin: 20px auto; /* Center horizontally */
+    width: 100%; /* Use percentage for responsiveness */
+    max-width: 800px; /* Prevent excessive widening */
+    display: flex;
+    justify-content: center; /* Center children horizontally */
+    gap: 2rem; /* Add space between file inputs */
+}
+
+.drop-area:hover {
+    background-color: #cfd6dd;
+}
+
+.file-input {
+    display: none;
+}
+
+.header {
+    background-color: rgb(255, 255, 255);
+    border-bottom: 2px solid black;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.task-info {
+    margin-top: 10px;
+    display: flex;
+    gap: 20px;
+}
+
+.text {
+    text-align: center;
+}
+
+.horizontal {
+    margin-top: 10px;
+    height: 1px;
+    background-color: black;
+    width: 100%;
+}
+
+#img {
+    width: 91px;
+    height: 61px;
+    margin: 5px 10px;
+}
+
+.btns {
+    margin: 10px 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.backBtn {
+    border: 1px solid black;
+    width: 78px;
+    height: 29px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+.nextBtn {
+    background-color: #0C67FF;
+    color: white;
+    border: 1px solid black;
+    width: 78px;
+    height: 29px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+.fileInput1, .fileInput2 {
+    background-color: lightgray;
+    margin: 10px;
+    width: 200px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.fileInput1 {
+    background-color: #ff9999;
+}
+
+.fileInput2 {
+    background-color: #9999ff;
+}
+
+
+
+
+.main-section{
+    background-color:rgb(255, 255, 255) ;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    height: 100vh;
+}
+
+/* div {
+	&.files {
+		background: #eee;
+		padding: 2rem;
+		margin:1rem 0;
+		border-radius:10px;
+		ul{
+			list-style:none;
+			padding:10px;
+			max-height:150px;
+			overflow:auto;
+			li{
+				padding:0.5rem 0;
+				padding-right:2rem;
+				position:relative;
+				i{
+					cursor:pointer;
+					position:absolute;
+					top:50%;
+					right:0;
+					transform:translatey(-50%);
+				}
+			}
+		}
+	}
+	&.container {
+		width: 100%;
+		padding: 0 2rem;
+	}
+} */
+
+span.file-size {
+	color: #999;
+	padding-left: 0.5rem;
+}
+
+
+
+
+.files {
+    background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.files:hover {
+    background: linear-gradient(135deg, #e0e0e0, #d0d0d0);
+    transform: translateY(-5px);
+}
+
+.files h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #333;
+    text-align: center;
+    position: relative;
+    font-weight: bold;
+}
+
+.files ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 150px;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.files ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff;
+    padding: 0.8rem 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.files ul li:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.files ul li .file-size {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+.files ul li i.remove-icon {
+    font-size: 1.2rem;
+    color: #ff4d4d;
+    cursor: pointer;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.files ul li i.remove-icon:hover {
+    transform: scale(1.2);
+    color: #d11a1a;
+}
+
+/* Smooth Scrollbar Styling */
+.files ul::-webkit-scrollbar {
+    width: 8px;
+}
+
+.files ul::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 10px;
+}
+
+.files ul::-webkit-scrollbar-thumb:hover {
+    background-color: #bbb;
+}
+
+.files ul::-webkit-scrollbar-track {
+    background-color: #f5f5f5;
+    border-radius: 10px;
+}
+
+
+.dropdown {
+  border-radius: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: white;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.dropdown:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(12, 103, 255, 0.2);
+}
+
+
+.dropdown-container{
+    display: flex;
+    gap:35px;
+}
+
+
+/* From Uiverse.io by vinodjangid07 */ 
+.Download-button {
+    display: flex;
+    align-items: center;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 17px;
+    padding: 12px 20px;
+    color: white;
+    background: rgb(103, 92, 156);
+    border: none;
+    box-shadow: 0 0.7em 1.5em -0.5em rgba(59, 48, 78, 0.527);
+    letter-spacing: 0.05em;
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .Download-button svg {
+    margin-right: 8px;
+    width: 25px;
+  }
+  
+  .Download-button:hover {
+    box-shadow: 0 0.5em 1.5em -0.5em rgba(88, 71, 116, 0.627);
+  }
+  
+  .Download-button:active {
+    box-shadow: 0 0.3em 1em -0.5em rgba(88, 71, 116, 0.627);
+  }
+  
+  .Download-button::before {
+    content: "";
+    width: 4px;
+    height: 40%;
+    background-color: white;
+    position: absolute;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    left: 0;
+    transition: all 0.2s;
+  }
+  
+  .Download-button::after {
+    content: "";
+    width: 4px;
+    height: 40%;
+    background-color: white;
+    position: absolute;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    right: 0;
+    transition: all 0.2s;
+  }
+  
+  .Download-button:hover::before,
+  .Download-button:hover::after {
+    height: 60%;
+  }
+
+
+
+
+
+  .clear-button {
+    display: flex;
+    align-items: center;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 17px;
+    padding: 12px 20px;
+    color: white;
+    background: green;
+    border: none;
+    box-shadow: 0 0.7em 1.5em -0.5em rgba(59, 48, 78, 0.527);
+    letter-spacing: 0.05em;
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .clear-button svg {
+    margin-right: 8px;
+    width: 25px;
+  }
+  
+  .clear-button:hover {
+    box-shadow: 0 0.5em 1.5em -0.5em rgba(88, 71, 116, 0.627);
+  }
+  
+  .clear-button:active {
+    box-shadow: 0 0.3em 1em -0.5em rgba(88, 71, 116, 0.627);
+  }
+  
+  .clear-button::before {
+    content: "";
+    width: 4px;
+    height: 40%;
+    background-color: white;
+    position: absolute;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    left: 0;
+    transition: all 0.2s;
+  }
+  
+  .clear-button::after {
+    content: "";
+    width: 4px;
+    height: 40%;
+    background-color: white;
+    position: absolute;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    right: 0;
+    transition: all 0.2s;
+  }
+  
+  .clear-button:hover::before,
+  .clear-button:hover::after {
+    height: 60%;
+  }
+  
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .cancel-button {
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: #555;
+    cursor: pointer;
+  }
+  
+  .steps {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .step {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    color: #aaa;
+  }
+  
+  .step span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+    color: #555;
+    font-weight: bold;
+  }
+  
+  .step.completed span {
+    background-color: #4caf50;
+    color: #fff;
+  }
+  
+  .step.active span {
+    background-color: #2196f3;
+    color: #fff;
+  }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.data-table th, .data-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.data-table th {
+    background-color: #f4f4f4;
+}
+
+.data-table tr {
+    transition: background-color 0.3s;
+}
+
+
+.file-input-container {
+    display: flex;
+    gap: 2.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+/* Card */
+.file-input-card {
+    position: relative;
+    width: 320px;
+    padding: 2.5rem 2rem;
+    border-radius: 18px;
+    cursor: pointer;
+    text-align: center;
+
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.85),
+        rgba(240, 245, 255, 0.85)
+    );
+    backdrop-filter: blur(12px);
+
+    border: 1px solid rgba(0, 123, 255, 0.25);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.08),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+
+    transition: all 0.35s ease;
+    overflow: hidden;
+}
+
+/* Gradient glow effect */
+.file-input-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, #007bff, #00c6ff);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    z-index: 0;
+}
+
+.file-input-card:hover::before {
+    opacity: 0.12;
+}
+
+/* Hover animation */
+.file-input-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 30px 60px rgba(0, 123, 255, 0.25);
+}
+
+/* Icon badge */
+.file-input-card span {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    margin-bottom: 1rem;
+    border-radius: 50%;
+
+    background: linear-gradient(135deg, #007bff, #00c6ff);
+    color: white;
+    font-size: 2.8rem;
+
+    box-shadow: 0 10px 25px rgba(0, 123, 255, 0.4);
+}
+
+/* Title */
+.file-input-card h3 {
+    position: relative;
+    z-index: 1;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 0.8rem 0 0.3rem; 
+    color: #1f2937;
+}
+
+/* Subtitle (optional future text) */
+.file-input-card p {
+    position: relative;
+    z-index: 1;
+    font-size: 0.95rem;
+    color: #6b7280;
+}
+
+/* Active click feedback */
+.file-input-card:active {
+    transform: scale(0.98);
+}
+
+
+
+/* #table-container{
+    font-size: 15px;
+    margin-top:12px;
+    margin-bottom: 8px;
+    text-decoration: underline;
+} */
+
+.heading-text{
+    font-size: 18px;
+    margin-top:18px;
+    margin-bottom: 8px;
+    text-decoration: underline;
+}
+
+
+

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./assets/img/MilmaLogo.png"/>
+    <title>Excel Analysis</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+</head>
+<body>
+    <header class="main-header">
+        <div class="header">
+            <div class="logo">
+                <img src="./assets/img/MilmaLogo.png" alt="logo" id="img">
+             </div>
+            <!-- <div class="steps">
+              <div class="step completed">
+                <span>✔</span>
+                Informations
+              </div>
+              <div class="step active">
+                <span>2</span>
+                Upload file
+              </div>
+              <div class="step">
+                <span>3</span>
+                Summary
+              </div>
+            </div> -->
+          </div>
+    </header>
+    
+
+    <main class="main-section">
+        <section class="file-section">
+          <div class="drop-area" id="drop-area">
+                <div class="file-input-container">
+                    <div class="file-input-card" onclick="document.getElementById('fileInput1').click();">
+                        <span class="material-icons">upload</span>
+                        <h3>Upload Excel Report</h3>
+                        <input type="file" id="fileInput1" class="file-input">
+                    </div>
+                    <div class="file-input-card" onclick="document.getElementById('fileInput2').click();">
+                        <span class="material-icons">add</span>
+                        <h3>Add More Folder</h3>
+                       
+                        <input type="file" id="fileInput2" class="file-input">
+                    </div>
+                </div>
+            </div>
+            <div class="files">
+                <h2>Files Selected</h2>
+                <ul id="file-list"></ul>
+            </div>
+            <div class="sheet-selection" id="zone-selection" >
+                <!-- <h3>Select a Sheet:</h3>
+                <ul id="sheet-list"></ul> -->
+            </div>
+            <div class="zone-area-selection" id="zone-area-selection" >
+                <!-- <h3>Select a Sheet:</h3>
+                <ul id="sheet-list"></ul> -->
+            </div>
+            
+            <div id="table-container"></div>
+            <!-- <select name="" id="dropdownproduct" class="dropdown">
+                <option>TM.5 - ltr</option>
+            </select> -->
+        </section>
+        
+    </main>
+
+    <script src="node_modules/xlsx/dist/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+    <script src="app.js"></script>
+</body>
+</html>
