@@ -7,7 +7,7 @@
     <title>Excel Analysis</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"></script>
 </head>
 <body>
     <header class="main-header">
@@ -42,9 +42,9 @@
                         <h3>Upload Excel Report</h3>
                         <input type="file" id="fileInput1" class="file-input">
                     </div>
-                    <div class="file-input-card" onclick="document.getElementById('fileInput2').click();">
+                    <!-- <div class="file-input-card" onclick="document.getElementById('fileInput2').click();">
                         <span class="material-icons">add</span>
-                        <h3>Add More Folder</h3>
+                        <h3>Add More Folder</h3> -->
                        
                         <input type="file" id="fileInput2" class="file-input">
                     </div>
@@ -67,6 +67,11 @@
             <!-- <select name="" id="dropdownproduct" class="dropdown">
                 <option>TM.5 - ltr</option>
             </select> -->
+
+
+            <div id="chart-container">
+                <!-- <canvas id="chart"> -->
+            </div>
         </section>
         
     </main>

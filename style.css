@@ -9,6 +9,10 @@ body {
     background-color: #b8b8b8;
 }
 
+.flex-container{
+    display: flex;
+}
+
 .drop-area {
     border: 2px dashed #007bff;
     border-radius: 10px;
@@ -115,7 +119,7 @@ body {
     margin-top: 20px;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
-    height: 100vh;
+    height: 180vh;
 }
 
 /* div {
@@ -575,3 +579,14 @@ span.file-size {
 
 
 
+
+#chart-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 10px;
+}
+
+.chart-box {
+  width: 48%;
+}

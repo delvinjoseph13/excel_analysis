@@ -204,12 +204,21 @@ function updateFilterZoneArea(selectedZone,zoneAreaDropDown){
     zoneAreaDropDown.innerHTML=
      `<option value="" disabled selected>Select Area</option>` +
     uniqueZoneArea.map(area=>`<option value="${area}">${area}</option>`).join('')
+ 
+
 }
 
 function fetchDataFilter(zoneSelect, zoneAreaSelect, productSelect) {
 
     const selectedZone =document.getElementById("sheetDropdown5").value;
     console.log(selectedZone)
+
+    const zoneAreaOption=document.getElementById("sheetDropDown6");
+     
+    const allOptionValues=Array.from(zoneAreaOption.options).map(option=>option.value).filter(value=>value);
+
+    
+
     const selectedZoneArea = zoneAreaSelect.value;
     const selectedProduct = productSelect.value;
 
@@ -219,7 +228,7 @@ function fetchDataFilter(zoneSelect, zoneAreaSelect, productSelect) {
             row.Zone_Area_Name === selectedZoneArea
     );
 
-    console.log(filteredData)
+    console.log("filtered data",filteredData)
 
     if (!filteredData) {
         alert("No data found");
@@ -249,6 +258,11 @@ function fetchDataFilter(zoneSelect, zoneAreaSelect, productSelect) {
         .reduce((total, row) => total + Number(row[selectedProduct] || 0), 0);
     
     const filterreduce=file1Data.filter(row=>row.Zone_Name ===selectedZone)
+    
+    console.log(selectedProduct)
+    const chartValue=filterreduce.map(val=>val[selectedProduct])
+
+    console.log(chartValue)
 
     console.log(filterreduce)
 
@@ -258,8 +272,13 @@ function fetchDataFilter(zoneSelect, zoneAreaSelect, productSelect) {
         "Product Total": fetchTotalItemValue
     };
 
+    console.log("datafrottoal",dataforTotal)
+
 const filterProductList = Object.keys(file1Data[0])
   .filter(key => key !== "Zone_Name" && key !== "Zone_Area_Name");
+
+
+//   console.log("poro",filterProductList)
 
 const totalForEachProduct = filterProductList.map(product => {
   const total = file1Data.reduce((sum, row) => {
@@ -276,15 +295,28 @@ const totalForEachProduct = filterProductList.map(product => {
   return { product, total };
 });
 
-console.log(totalForEachProduct);
+// console.log(totalForEachProduct);
 
 const resultObject = totalForEachProduct.reduce((acc, item) => {
   acc[item.product] = item.total;
   return acc;
 }, {});
 
-// console.log(resultObject);
+// console.log("resultObject",resultObject);
+    const zoneTotals=file1Data.reduce((acc,row)=>{
+        const zone=row.Zone_Name;
+        const value=Number(row[selectedProduct] || 0);
 
+        if(!zone || Number.isNaN(value)) return acc;
+
+        acc[zone]=(acc[zone] || 0) +value
+        return acc
+    },{})
+
+    const zoneLabel=Object.keys(zoneTotals);
+    const zoneValue=Object.values(zoneTotals)
+    
+    // console.log(zoneTotals)
 
     addHeadingText("Total Product");
     renderTable(resultObject, "table-container");
@@ -296,6 +328,25 @@ const resultObject = totalForEachProduct.reduce((acc, item) => {
     // ✅ Second table
     addHeadingText("Total Report");
     renderTable(dataforTotal, "table-container");
+     
+    
+       
+createCanvas(
+  allOptionValues,
+  chartValue,
+  "Zone Area Wise Product",
+  "areaChart"
+);
+
+createCanvas(
+  zoneLabel,
+  zoneValue,
+  "Zone Wise Product Total",
+  "zoneChart"
+);
+
+
+    
 
 
 }
@@ -540,7 +591,8 @@ function fetchDetails(){
 
 }
 
-
+let myChart = null;
+const charts=[];
 
 // function compareData() {
 //     if (file1Data && file2Data) {
@@ -579,6 +631,57 @@ function fetchDetails(){
 //         generateExcelWithColors(file1Data);
 //     }
 // }
+
+
+
+// const ctx=document.getElementById("chart");
+
+function createCanvas(labels, values, title, chartId) {
+  const chartContainer = document.getElementById("chart-container");
+  
+  chartContainer.style.marginTop="20px"
+
+  // Wrapper
+  const wrapper = document.createElement("div");
+  wrapper.className = "chart-box";
+
+
+  // Heading
+  const heading = document.createElement("h2");
+  heading.textContent = title;
+
+  // Canvas (UNIQUE ID)
+  const canvas = document.createElement("canvas");
+  canvas.id = chartId;
+
+
+
+  wrapper.appendChild(heading);
+  wrapper.appendChild(canvas);
+  chartContainer.appendChild(wrapper);
+
+  // Create chart
+  const chart = new Chart(canvas, {
+    type: "bar",
+    data: {
+      labels,
+      datasets: [{
+        label: title,
+        data: values,
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: { beginAtZero: true }
+      }
+    }
+  });
+
+  charts.push(chart); // store reference
+}
+
 
 
 
