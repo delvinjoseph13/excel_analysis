@@ -119,7 +119,7 @@ body {
     margin-top: 20px;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
-    height: 180vh;
+    height: 225vh;
 }
 
 /* div {
@@ -582,11 +582,12 @@ span.file-size {
 
 #chart-container {
   display: flex;
-  justify-content: space-between;
-  align-items: start;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 10px;
 }
 
 .chart-box {
-  width: 48%;
+  width: 100%;
 }

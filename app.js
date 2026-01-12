@@ -136,7 +136,7 @@ dropdown.addEventListener("change", () => {
   `<option value="" disabled selected>Select Product</option>` +
   uniqueProducts.map(product=>`<option value="${product}">${product}</option>`)
   
-  console.log(file1Data)
+//   console.log(file1Data)
 
   const confirmButtonFilter=document.createElement('button');
   confirmButtonFilter.classList.add("Download-button")
@@ -144,6 +144,7 @@ dropdown.addEventListener("change", () => {
   confirmButtonFilter.addEventListener('click',()=>{
     fetchDataFilter(dropdown,dropdrownForZoneArea,dropdownForSelectProduct)
   })
+
 
   const clearButton=document.createElement('button');
   clearButton.classList.add("clear-button")
@@ -183,6 +184,7 @@ function clearAllData() {
 
     // Clear tables
     document.getElementById("table-container").innerHTML = "";
+    
 
     // Clear dropdowns
     document.getElementById("zone-selection").innerHTML = "";
@@ -193,6 +195,8 @@ function clearAllData() {
     // Reset file inputs
     document.getElementById("fileInput1").value = "";
     document.getElementById("fileInput2").value = "";
+
+    document.getElementById("chart-container").innerHTML=""
 }
 
 
@@ -211,7 +215,7 @@ function updateFilterZoneArea(selectedZone,zoneAreaDropDown){
 function fetchDataFilter(zoneSelect, zoneAreaSelect, productSelect) {
 
     const selectedZone =document.getElementById("sheetDropdown5").value;
-    console.log(selectedZone)
+    // console.log(selectedZone)
 
     const zoneAreaOption=document.getElementById("sheetDropDown6");
      
@@ -228,14 +232,14 @@ function fetchDataFilter(zoneSelect, zoneAreaSelect, productSelect) {
             row.Zone_Area_Name === selectedZoneArea
     );
 
-    console.log("filtered data",filteredData)
+    // console.log("filtered data",filteredData)
 
     if (!filteredData) {
         alert("No data found");
         return;
     }
 
-    console.log(filteredData[0][selectedProduct])
+    // console.log(filteredData[0][selectedProduct])
 
     const tableContainer = document.getElementById("table-container");
     tableContainer.innerHTML = ""; // ✅ CLEAR ONCE HERE
@@ -259,12 +263,13 @@ function fetchDataFilter(zoneSelect, zoneAreaSelect, productSelect) {
     
     const filterreduce=file1Data.filter(row=>row.Zone_Name ===selectedZone)
     
-    console.log(selectedProduct)
+    // console.log(selectedProduct)
     const chartValue=filterreduce.map(val=>val[selectedProduct])
+    const chartColor=["red", "green","blue","orange","brown","red", "green","blue","orange","brown","red", "green","blue","orange","brown"]
 
-    console.log(chartValue)
+    // console.log(chartValue)
 
-    console.log(filterreduce)
+    // console.log(filterreduce)
 
     const dataforTotal = {
         "Zone Name": selectedZone,
@@ -272,7 +277,7 @@ function fetchDataFilter(zoneSelect, zoneAreaSelect, productSelect) {
         "Product Total": fetchTotalItemValue
     };
 
-    console.log("datafrottoal",dataforTotal)
+    // console.log("datafrottoal",dataforTotal)
 
 const filterProductList = Object.keys(file1Data[0])
   .filter(key => key !== "Zone_Name" && key !== "Zone_Area_Name");
@@ -329,7 +334,7 @@ const resultObject = totalForEachProduct.reduce((acc, item) => {
     addHeadingText("Total Report");
     renderTable(dataforTotal, "table-container");
      
-    
+ resetCharts()  
        
 createCanvas(
   allOptionValues,
@@ -409,7 +414,7 @@ function handleFileSelect2(event) {
                 }));
 
                 // Console the extracted data
-                console.log("Extracted B2B Data:", file2Data);
+                // console.log("Extracted B2B Data:", file2Data);
 
                 renderFileList(file, 'fileInput2', 'file2');
                 // compareData();
@@ -453,7 +458,7 @@ function handleFileSelect2(event) {
 
 
             // Console the extracted data
-            console.log("Extracted B2B Data:", file1Data);
+            // console.log("Extracted B2B Data:", file1Data);
 
             renderFileList(file, 'fileInput2', 'file2');
             // compareData();
@@ -636,51 +641,106 @@ const charts=[];
 
 // const ctx=document.getElementById("chart");
 
+
+function resetCharts() {
+  const chartContainer = document.getElementById("chart-container");
+
+  // Destroy old chart instances
+  charts.forEach(chart => chart.destroy());
+  charts.length = 0; // clear array
+
+  // Clear DOM
+  chartContainer.innerHTML = "";
+}
+
+
+
+
+
 function createCanvas(labels, values, title, chartId) {
   const chartContainer = document.getElementById("chart-container");
-  
-  chartContainer.style.marginTop="20px"
 
-  // Wrapper
   const wrapper = document.createElement("div");
   wrapper.className = "chart-box";
+  wrapper.style.margin = "30px 0";
+  wrapper.style.padding = "20px";
+  wrapper.style.borderRadius = "12px";
+  wrapper.style.background = "#1e1e1e";
+  wrapper.style.boxShadow = "0 10px 25px rgba(0,0,0,0.3)";
 
-
-  // Heading
   const heading = document.createElement("h2");
   heading.textContent = title;
+  heading.style.textAlign = "center";
+  heading.style.color = "#fff";
 
-  // Canvas (UNIQUE ID)
-  const canvas = document.createElement("canvas");
-  canvas.id = chartId;
-
-
+  const chartDiv = document.createElement("div");
+  chartDiv.id = chartId;
+  chartDiv.style.height = "350px";
 
   wrapper.appendChild(heading);
-  wrapper.appendChild(canvas);
+  wrapper.appendChild(chartDiv);
   chartContainer.appendChild(wrapper);
 
-  // Create chart
-  const chart = new Chart(canvas, {
-    type: "bar",
-    data: {
-      labels,
-      datasets: [{
-        label: title,
-        data: values,
-        borderWidth: 1
-      }]
+  // Color palette
+  const colors = [
+    "#00E5FF", "#FF4081", "#FFD740", "#69F0AE",
+    "#FF6D00", "#7C4DFF", "#1DE9B6", "#FF1744"
+  ];
+
+  const dataPoints = labels.map((label, i) => ({
+    label: label,
+    y: values[i],
+    color: colors[i % colors.length]
+  }));
+
+  const chart = new CanvasJS.Chart(chartId, {
+    theme: "dark2",
+    animationEnabled: true,
+    exportEnabled: true,
+    backgroundColor: "transparent",
+    axisX: {
+      labelFontColor: "#ccc",
+      tickColor: "#555"
     },
-    options: {
-      responsive: true,
-      scales: {
-        y: { beginAtZero: true }
-      }
-    }
+    axisY: {
+      labelFontColor: "#ccc",
+      gridColor: "#333"
+    },
+    data: [{
+      type: "bar",
+      indexLabel: "{y}",
+      indexLabelFontColor: "#fff",
+      indexLabelPlacement: "inside",
+      dataPoints: dataPoints
+    }]
   });
 
-  charts.push(chart); // store reference
+  chart.render();
 }
+
+
+
+  // Create chart
+//   const chart = new Chart(canvas, {
+//     type: "doughnut",
+//     data: {
+//       labels,
+//       datasets: [{
+//         label: title,
+//         data:values,
+//         borderWidth: 1
+//       }]
+//     },
+//     options: {
+//       responsive: true,
+//       scales: {
+//         y: { beginAtZero: true }
+//       }
+//     }
+//   });
+
+//   charts.push(chart); // store reference
+// }
 
 
 
